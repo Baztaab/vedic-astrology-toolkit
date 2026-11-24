@@ -1,0 +1,38 @@
+name: External sidereal 170-rule audit
+
+on:
+  pull_request:
+    paths:
+      - "tests/fixtures/external_sidereal_case_d1.json"
+      - "tests/external_sidereal_case_audit.py"
+      - "tests/test_external_sidereal_rules.py"
+      - ".github/workflows/external-sidereal-audit.yml"
+      - "vedic_toolkit/**"
+      - "rule_coverage.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout audited branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+      - name: Install runtime dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run isolated source-longitude regression
+        run: python -m unittest tests.test_external_sidereal_rules -v
+      - name: Generate full 170-rule evidence artifact
+        run: python -m tests.external_sidereal_case_audit --output artifacts/external_sidereal_rule_audit.json
+      - name: Upload rule and qualification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-sidereal-rule-audit
+          path: artifacts/external_sidereal_rule_audit.json
+          if-no-files-found: error
