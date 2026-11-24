@@ -1,0 +1,28 @@
+name: Export source for private-input local calculation
+
+on:
+  push:
+    branches:
+      - audit/external-sidereal-case
+    paths:
+      - .github/workflows/source-export.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - name: Package toolkit source only (no private natal input)
+        run: |
+          tar -czf toolkit-source.tar.gz vedic_toolkit requirements.txt pyproject.toml rule_coverage.json CALCULATION_PROFILE.md INPUT_FORMATS.md
+          tar -tzf toolkit-source.tar.gz | head -30
+      - name: Upload toolkit source for local private calculation
+        uses: actions/upload-artifact@v4
+        with:
+          name: toolkit-source-for-private-calculation
+          path: toolkit-source.tar.gz
+          if-no-files-found: error

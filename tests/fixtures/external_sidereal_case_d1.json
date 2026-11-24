@@ -1,0 +1,36 @@
+{
+  "schema_version": "external_sidereal_d1_v1",
+  "description": "Anonymous sidereal D1 longitude fixture derived from a separately established canonical chart. No birth date, place, or identity is included.",
+  "provenance": {
+    "input_kind": "display_rounded_longitudes",
+    "sidereal_ayanamsa": "True Pushya (external canonical calculation)",
+    "node": "mean",
+    "house_system": "whole_sign",
+    "precision_note": "Longitudes transcribed from degrees/minutes/seconds displayed to 0.01 arcsecond; not full-precision canonical P0 output.",
+    "scope": "D1 sign and selected divisional structural rule audit only; divisional methods and strength classification must be independently verified."
+  },
+  "longitudes": {
+    "Asc": 237.4896444444,
+    "Sun": 54.2518777778,
+    "Moon": 82.7701555556,
+    "Mars": 152.5907194444,
+    "Mercury": 35.0735944444,
+    "Jupiter": 299.2465333333,
+    "Venus": 71.5903416667,
+    "Saturn": 355.2290222222,
+    "Rahu": 152.0202861111,
+    "Ketu": 332.0202861111
+  },
+  "expected_d1_signs": {
+    "Asc": "Sc",
+    "Sun": "Ta",
+    "Moon": "Ge",
+    "Mars": "Vi",
+    "Mercury": "Ta",
+    "Jupiter": "Cp",
+    "Venus": "Ge",
+    "Saturn": "Pi",
+    "Rahu": "Vi",
+    "Ketu": "Pi"
+  }
+}
